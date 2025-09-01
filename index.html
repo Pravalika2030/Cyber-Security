@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spam Alert System</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(135deg, #d9e7ff, #f5f7fb);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .box {
+      background: #fff;
+      padding: 30px;
+      max-width: 650px;
+      width: 90%;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      text-align: center;
+    }
+    h2 {
+      margin-top: 0;
+      font-size: 24px;
+      color: #0b63ff;
+    }
+    p {
+      color: #444;
+      margin-bottom: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 120px;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      outline: none;
+      resize: none;
+      transition: border-color 0.2s;
+    }
+    textarea:focus {
+      border-color: #0b63ff;
+    }
+    button {
+      margin-top: 16px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      background: #0b63ff;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #094ed1;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 14px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .safe {
+      background: #e6f9ed;
+      color: #065f2c;
+      border: 1px solid #9ce2af;
+    }
+    .spam {
+      background: #ffecec;
+      color: #7a0411;
+      border: 1px solid #f5a5af;
+    }
+    footer {
+      margin-top: 25px;
+      font-size: 13px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>📩 Spam Alert System</h2>
+    <p>Type a message and click <b>Check</b> to detect spam keywords.</p>
+    
+    <textarea id="message" placeholder="Enter your message here..."></textarea>
+    <br>
+    <button onclick="checkSpam()">Check</button>
+    
+    <div id="output"></div>
+    <footer>Simple keyword-based spam detector for college project</footer>
+  </div>
+
+  <script>
+    const SPAM_KEYWORDS = [
+      "lottery","win money","click here","free","offer",
+      "urgent","congratulations","limited time","act now",
+      "guaranteed","100% free","investment","cheap","deal"
+    ];
+
+    function checkSpam() {
+      const msg = document.getElementById("message").value.toLowerCase();
+      let found = null;
+
+      for (let word of SPAM_KEYWORDS) {
+        if (msg.includes(word)) {
+          found = word;
+          break;
+        }
+      }
+
+      const out = document.getElementById("output");
+      if (found) {
+        out.innerHTML = `<div class="result spam">⚠️ Spam detected (keyword: ${found})</div>`;
+      } else {
+        out.innerHTML = `<div class="result safe">✅ Not Spam (Safe message)</div>`;
+      }
+    }
+  </script>
+</body>
+</html>
